@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARINDAM D.S.C | Online Digital Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #161412;
+    --card: #1f1c19;
+    --ink: #f3efe9;
+    --muted: #a8a097;
+    --brand: #fb923c;
+    --brand-dark: #ea580c;
+    --accent: #fb923c;
+    --line: #332e29;
+    --wa: #25d366;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans Bengali', 'Poppins', system-ui, sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.6;
+  }
+  a { text-decoration: none; color: inherit; }
+  .wrap { max-width: 1100px; margin: auto; padding: 0 16px; }
+
+  /* top bar */
+  .topbar { background: #0d0b0a; color: var(--muted); font-size: 13px; text-align: center; padding: 8px; }
+  header { position: sticky; top: 0; z-index: 30; background: var(--card); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 12px; }
+  .logo { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--brand); font-size: 18px; }
+  .logo small { display: block; font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: .5px; }
+  .nav-links { display: flex; gap: 18px; font-size: 14px; color: var(--muted); }
+  .nav-links a:hover { color: var(--brand); }
+  .call-btn {
+    background: var(--brand); color: #161412; padding: 9px 16px; border-radius: 999px;
+    font-size: 14px; font-weight: 600; white-space: nowrap; color: #161412;
+  }
+  @media (max-width: 760px) { .nav-links { display: none; } }
+
+  /* hero banner */
+  .hero {
+    background: var(--card);
+    color: var(--ink); border: 1px solid var(--line); border-radius: 22px; margin: 18px auto 0; max-width: 1100px;
+    padding: 44px 28px; position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; right: -60px; top: -60px; width: 260px; height: 260px;
+    background: rgba(251,146,60,.08); border-radius: 50%;
+  }
+  .hero .badge {
+    display: inline-block; background: #3a2a1f; color: var(--brand); font-weight: 700;
+    font-size: 13px; padding: 5px 12px; border-radius: 999px;
+  }
+  .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(28px, 5vw, 42px); margin: 14px 0 8px; line-height: 1.2; }
+  .hero p { opacity: .95; font-size: 16px; max-width: 520px; }
+  .hero .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+  .btn { display: inline-block; padding: 12px 20px; border-radius: 10px; font-weight: 700; font-size: 15px; }
+  .btn-primary { background: var(--brand); color: #161412; }
+  .btn-wa { background: var(--wa); color: #fff; }
+  .btn-outline { border: 1.5px solid var(--brand); color: var(--brand); }
+
+  /* trust strip */
+  .trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px auto 0; max-width: 1100px; padding: 0 16px; }
+  .trust div {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px; text-align: center; font-size: 13px; font-weight: 600;
+  }
+  @media (max-width: 640px) { .trust { grid-template-columns: repeat(2, 1fr); } }
+
+  /* section heads */
+  .section { padding: 40px 0 8px; }
+  .section-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .section-head h2 { font-family: 'Poppins', sans-serif; font-size: 24px; }
+  .section-head p { color: var(--muted); font-size: 14px; }
+
+  /* category filter */
+  .filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 18px; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter {
+    flex: 0 0 auto; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+    padding: 8px 16px; border-radius: 999px; font-size: 14px; cursor: pointer; font-family: inherit;
+  }
+  .filter.active { background: var(--brand); border-color: var(--brand); color: #161412; }
+
+  /* product grid */
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 760px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  .item {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 18px; display: flex; flex-direction: column; gap: 10px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .item:hover { transform: translateY(-3px); border-color: var(--brand); }
+  .item .thumb {
+    height: 96px; border-radius: 12px; display: grid; place-items: center; font-size: 42px;
+    background: linear-gradient(135deg, rgba(251,146,60,.16), rgba(251,146,60,.03));
+  }
+  .item .cat { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+  .item h3 { font-size: 16px; line-height: 1.35; }
+  .item .desc { font-size: 13px; color: var(--muted); }
+  .item .foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; }
+  .price { font-weight: 700; color: var(--brand); font-size: 14px; }
+  .order {
+    background: var(--brand); color: #161412; padding: 8px 12px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; white-space: nowrap;
+  }
+  .order:hover { background: var(--brand); color: #161412; }
+  .tag-soon { font-size: 11px; background: #3a2a1f; color: #fdba74; padding: 3px 8px; border-radius: 999px; width: fit-content; }
+  .item.hide { display: none; }
+
+  /* about strip */
+  .about {
+    margin-top: 40px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 18px; padding: 26px; display: grid; gap: 20px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) { .about { grid-template-columns: 1fr 1fr; align-items: center; } }
+  .about h2 { font-family: 'Poppins', sans-serif; font-size: 22px; margin-bottom: 6px; }
+  .about p { color: var(--muted); font-size: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; }
+  .stats div { background: var(--bg); border-radius: 12px; padding: 16px 8px; }
+  .stats b { display: block; font-family: 'Poppins', sans-serif; font-size: 22px; color: var(--brand); }
+  .stats span { font-size: 12px; color: var(--muted); }
+
+  /* contact */
+  .contact { margin: 40px 0 20px; text-align: center; }
+  .contact-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .contact-row a { background: var(--card); border: 1px solid var(--line); padding: 12px 18px; border-radius: 12px; font-size: 14px; font-weight: 600; }
+
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 24px 16px 40px; border-top: 1px solid var(--line); margin-top: 24px; }
+
+  /* floating whatsapp */
+  .float-wa {
+    position: fixed; right: 16px; bottom: 16px; z-index: 40;
+    background: var(--wa); color: #fff; width: 56px; height: 56px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 26px; box-shadow: 0 8px 20px rgba(0,0,0,.2);
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">Fast • Easy • Reliable · সব ডিজিটাল সেবা এক জায়গায়</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">ARINDAM D.S.C<small>DIGITAL SERVICE CENTER</small></a>
+    <div class="nav-links">
+      <a href="#services">সেবা</a>
+      <a href="#studio">ফটো স্টুডিও</a>
+      <a href="#tools">টুলস</a>
+      <a href="#about">আমার সম্পর্কে</a>
+      <a href="#contact">যোগাযোগ</a>
+    </div>
+    <a class="call-btn" href="tel:+918918773392">📞 কল করুন</a>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="badge">Your Trusted Digital Service Partner</span>
+    <h1>সব ডিজিটাল সেবা,<br>এক জায়গায়</h1>
+    <p>অনলাইন ফর্ম, ছবি, প্রিন্ট, আবেদন আর আরও অনেক কিছু, এখন সহজে ও দ্রুত।</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#services">সেবা দেখুন</a>
+      <a class="btn btn-wa" href="https://wa.me/918918773392" target="_blank" rel="noopener">WhatsApp-এ অর্ডার</a>
+    </div>
+  </div>
+
+  <!-- TRUST -->
+  <div class="trust">
+    <div>⚡ দ্রুত সেবা</div>
+    <div>🔒 নির্ভরযোগ্য</div>
+    <div>💬 সরাসরি যোগাযোগ</div>
+    <div>✅ স্বচ্ছ লেনদেন</div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="section-head">
+      <div>
+        <h2>আমাদের সেবাসমূহ</h2>
+        <p>যে সেবা লাগবে সেটিতে ক্লিক করে সরাসরি অর্ডার করুন</p>
+      </div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter active" data-f="all">সব</button>
+      <button class="filter" data-f="print">প্রিন্ট ও ডকুমেন্ট</button>
+      <button class="filter" data-f="gov">সরকারি সেবা</button>
+      <button class="filter" data-f="edu">শিক্ষা ও ক্যারিয়ার</button>
+      <button class="filter" data-f="recharge">রিচার্জ ও বিল</button>
+      <button class="filter" data-f="photo">ফটো স্টুডিও</button>
+      <button class="filter" data-f="tools">অনলাইন টুলস</button>
+      <button class="filter" data-f="form">ফর্ম ফিলিং</button>
+      <button class="filter" data-f="pdf">PDF টুলস</button>
+      <button class="filter" data-f="img">ইমেজ টুলস</button>
+      <button class="filter" data-f="idcard">ID কার্ড</button>
+    </div>
+
+    <div class="grid" id="grid">
+      <!-- Printing & Documentation -->
+      <div class="item" data-c="print">
+        <div class="thumb">🖨️</div>
+        <div class="cat">প্রিন্ট ও ডকুমেন্ট</div>
+        <h3>প্রিন্ট ও স্ক্যান</h3>
+        <div class="desc">প্রিন্ট, স্ক্যান আর ফটোকপি</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=প্রিন্ট%20ও%20স্ক্যান%20অর্ডার" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="print">
+        <div class="thumb">📑</div>
+        <div class="cat">প্রিন্ট ও ডকুমেন্ট</div>
+        <h3>PDF এডিটিং</h3>
+        <div class="desc">PDF সম্পাদনা ও ফরম্যাটিং</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=PDF%20এডিটিং%20অর্ডার" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="print">
+        <div class="thumb">🧾</div>
+        <div class="cat">প্রিন্ট ও ডকুমেন্ট</div>
+        <h3>আবেদনপত্র প্রিন্ট</h3>
+        <div class="desc">ফর্ম ও আবেদন প্রিন্ট, ফটোকপি</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=আবেদনপত্র%20প্রিন্ট%20অর্ডার" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+
+      <!-- Government -->
+      <div class="item" data-c="gov">
+        <div class="thumb">🏛️</div>
+        <div class="cat">সরকারি সেবা</div>
+        <h3>PAN কার্ড আবেদন</h3>
+        <div class="desc">আবেদনে সহায়তা</div>
+        <span class="tag-soon">অনুমোদন সাপেক্ষে</span>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=PAN%20কার্ড%20আবেদন" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="gov">
+        <div class="thumb">🪪</div>
+        <div class="cat">সরকারি সেবা</div>
+        <h3>আধার সংক্রান্ত সেবা</h3>
+        <div class="desc">আধার-সম্পর্কিত সহায়তা</div>
+        <span class="tag-soon">অনুমোদন সাপেক্ষে</span>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=আধার%20সেবা" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="gov">
+        <div class="thumb">📋</div>
+        <div class="cat">সরকারি সেবা</div>
+        <h3>সরকারি প্রকল্পের আবেদন</h3>
+        <div class="desc">সরকারি ফর্ম ও স্কিম আবেদনে সাহায্য</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=সরকারি%20স্কিম%20আবেদন" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+
+      <!-- Education -->
+      <div class="item" data-c="edu">
+        <div class="thumb">🎓</div>
+        <div class="cat">শিক্ষা ও ক্যারিয়ার</div>
+        <h3>অনলাইন পরীক্ষার ফর্ম</h3>
+        <div class="desc">ফর্ম পূরণে সহায়তা</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=পরীক্ষার%20ফর্ম" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="edu">
+        <div class="thumb">💼</div>
+        <div class="cat">শিক্ষা ও ক্যারিয়ার</div>
+        <h3>চাকরির আবেদন</h3>
+        <div class="desc">জব অ্যাপ্লিকেশন সহায়তা</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=চাকরির%20আবেদন" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="edu">
+        <div class="thumb">📄</div>
+        <div class="cat">শিক্ষা ও ক্যারিয়ার</div>
+        <h3>Resume / CV তৈরি</h3>
+        <div class="desc">আকর্ষণীয় রেজুমে তৈরি</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=Resume%20তৈরি" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="edu">
+        <div class="thumb">🎫</div>
+        <div class="cat">শিক্ষা ও ক্যারিয়ার</div>
+        <h3>Admit Card ও Result</h3>
+        <div class="desc">অ্যাডমিট কার্ড ডাউনলোড, রেজাল্ট দেখা</div>
+        <div class="foot"><span class="price">বিনামূল্যে</span><a class="order" href="tel:+918918773392">যোগাযোগ</a></div>
+      </div>
+
+      <!-- Recharge & Bills -->
+      <div class="item" data-c="recharge">
+        <div class="thumb">📱</div>
+        <div class="cat">রিচার্জ</div>
+        <h3>Mobile Recharge</h3>
+        <div class="desc">সব অপারেটরের রিচার্জ</div>
+        <span class="tag-soon">শীঘ্রই আসছে</span>
+        <div class="foot"><span class="price">শীঘ্রই</span><a class="order" href="tel:+918918773392">যোগাযোগ</a></div>
+      </div>
+      <div class="item" data-c="recharge">
+        <div class="thumb">📺</div>
+        <div class="cat">রিচার্জ</div>
+        <h3>DTH Recharge</h3>
+        <div class="desc">DTH রিচার্জ সেবা</div>
+        <span class="tag-soon">শীঘ্রই আসছে</span>
+        <div class="foot"><span class="price">শীঘ্রই</span><a class="order" href="tel:+918918773392">যোগাযোগ</a></div>
+      </div>
+      <div class="item" data-c="recharge">
+        <div class="thumb">💡</div>
+        <div class="cat">বিল পেমেন্ট</div>
+        <h3>বিদ্যুৎ ও জলের বিল</h3>
+        <div class="desc">বিল পেমেন্ট সুবিধা</div>
+        <span class="tag-soon">শীঘ্রই আসছে</span>
+        <div class="foot"><span class="price">শীঘ্রই</span><a class="order" href="tel:+918918773392">যোগাযোগ</a></div>
+      </div>
+
+      <!-- Photo Studio -->
+      <div class="item" data-c="photo" id="studio">
+        <div class="thumb">🛂</div>
+        <div class="cat">ফটো স্টুডিও</div>
+        <h3>পাসপোর্ট সাইজ ফটো</h3>
+        <div class="desc">আবেদনের মাপে ছবি তৈরি</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-passport.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+      <div class="item" data-c="photo">
+        <div class="thumb">🎨</div>
+        <div class="cat">ফটো স্টুডিও</div>
+        <h3>ব্যাকগ্রাউন্ড পরিবর্তন</h3>
+        <div class="desc">সাদা বা যেকোনো রঙের ব্যাকগ্রাউন্ড</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-bgremove.html" target="_blank" rel="noopener">ছবি পাঠান</a></div>
+      </div>
+      <div class="item" data-c="photo">
+        <div class="thumb">✏️</div>
+        <div class="cat">ফটো স্টুডিও</div>
+        <h3>ফটো এডিটিং</h3>
+        <div class="desc">ছবির উন্নতি ও সংশোধন</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-edit.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+      <div class="item" data-c="photo">
+        <div class="thumb">🔄</div>
+        <div class="cat">ফটো স্টুডিও</div>
+        <h3>পুরোনো ছবি পুনরুদ্ধার</h3>
+        <div class="desc">ফটো রিস্টোরেশন</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=ফটো%20রিস্টোরেশন" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+
+      <!-- Tools -->
+      <div class="item" data-c="tools" id="tools">
+        <div class="thumb">🧰</div>
+        <div class="cat">অনলাইন টুলস</div>
+        <h3>PDF টুলস</h3>
+        <div class="desc">PDF সংক্রান্ত সহজ কাজ</div>
+        <span class="tag-soon">শীঘ্রই আসছে</span>
+        <div class="foot"><span class="price">শীঘ্রই</span><a class="order" href="tel:+918918773392">যোগাযোগ</a></div>
+      </div>
+      <div class="item" data-c="tools">
+        <div class="thumb">🖼️</div>
+        <div class="cat">অনলাইন টুলস</div>
+        <h3>Image টুলস</h3>
+        <div class="desc">ছবির রিসাইজ ও রূপান্তর</div>
+        <span class="tag-soon">শীঘ্রই আসছে</span>
+        <div class="foot"><span class="price">শীঘ্রই</span><a class="order" href="tel:+918918773392">যোগাযোগ</a></div>
+      </div>
+
+      <div class="item" data-c="form">
+        <div class="thumb">📝</div>
+        <div class="cat">ফর্ম ফিলিং</div>
+        <h3>PAN কার্ড ফর্ম</h3>
+        <div class="desc">নতুন PAN ও সংশোধন ফর্ম পূরণ</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=PAN%20ফর্ম%20পূরণ" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="form">
+        <div class="thumb">🪪</div>
+        <div class="cat">ফর্ম ফিলিং</div>
+        <h3>আধার ফর্ম</h3>
+        <div class="desc">নতুন ও আপডেট আধার ফর্ম</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=আধার%20ফর্ম" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="form">
+        <div class="thumb">🛂</div>
+        <div class="cat">ফর্ম ফিলিং</div>
+        <h3>পাসপোর্ট ফর্ম</h3>
+        <div class="desc">নতুন ও সংশোধন পাসপোর্ট ফর্ম</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=পাসপোর্ট%20ফর্ম" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="form">
+        <div class="thumb">🏦</div>
+        <div class="cat">ফর্ম ফিলিং</div>
+        <h3>ব্যাংক ফর্ম</h3>
+        <div class="desc">অ্যাকাউন্ট, মোবাইল আপডেট ফর্ম</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=ব্যাংক%20ফর্ম" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="form">
+        <div class="thumb">🗂️</div>
+        <div class="cat">ফর্ম ফিলিং</div>
+        <h3>রাজ্য ফর্ম</h3>
+        <div class="desc">জাতি, ডোমিসাইল, আয়ের সার্টিফিকেট</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=রাজ্য%20ফর্ম" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="pdf">
+        <div class="thumb">🔗</div>
+        <div class="cat">PDF টুলস</div>
+        <h3>PDF মার্জ</h3>
+        <div class="desc">একাধিক PDF এক করা</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-merge.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+      <div class="item" data-c="pdf">
+        <div class="thumb">🖼️</div>
+        <div class="cat">PDF টুলস</div>
+        <h3>ছবি থেকে PDF</h3>
+        <div class="desc">ছবি বা JPG-কে A4 PDF-এ রূপান্তর</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-pdf.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+      <div class="item" data-c="pdf">
+        <div class="thumb">🔓</div>
+        <div class="cat">PDF টুলস</div>
+        <h3>PDF পাসওয়ার্ড খোলা</h3>
+        <div class="desc">পাসওয়ার্ড সুরক্ষিত PDF আনলক</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="https://wa.me/918918773392?text=PDF%20আনলক" target="_blank" rel="noopener">অর্ডার</a></div>
+      </div>
+      <div class="item" data-c="img">
+        <div class="thumb">✨</div>
+        <div class="cat">ইমেজ টুলস</div>
+        <h3>ছবি HD করা</h3>
+        <div class="desc">কম মানের ছবি উন্নত করা</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-edit.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+      <div class="item" data-c="img">
+        <div class="thumb">🧽</div>
+        <div class="cat">ইমেজ টুলস</div>
+        <h3>ব্যাকগ্রাউন্ড রিমুভ</h3>
+        <div class="desc">ছবির ব্যাকগ্রাউন্ড সরানো</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-bgremove.html" target="_blank" rel="noopener">ছবি পাঠান</a></div>
+      </div>
+      <div class="item" data-c="idcard">
+        <div class="thumb">🆔</div>
+        <div class="cat">ID কার্ড প্রিন্ট</div>
+        <h3>ID কার্ড ক্রপ ও প্রিন্ট</h3>
+        <div class="desc">আধার, PAN, ভোটার কার্ড সামনে-পেছনে ক্রপ</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-id.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+      <div class="item" data-c="idcard">
+        <div class="thumb">📄</div>
+        <div class="cat">ID কার্ড প্রিন্ট</div>
+        <h3>A4 শিটে প্রিন্ট</h3>
+        <div class="desc">একাধিক কার্ড একটি A4 শিটে</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-id.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+      <div class="item" data-c="edu">
+        <div class="thumb">📃</div>
+        <div class="cat">শিক্ষা ও ক্যারিয়ার</div>
+        <h3>Resume Maker</h3>
+        <div class="desc">ফ্রেশারদের জন্য সহজ রেজুমে</div>
+        <div class="foot"><span class="price">দাম জানুন</span><a class="order" href="tool-merge.html" target="_blank" rel="noopener">ব্যবহার করুন</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div>
+      <h2>ARINDAM D.S.C</h2>
+      <p>Founder: Arindam Sutradhar। Begunia, Birbhum, West Bengal থেকে আমরা সহজ, নির্ভরযোগ্য ও স্বচ্ছ ডিজিটাল সেবা দিচ্ছি। প্রযুক্তিকে সবার কাছে সহজ করাই আমাদের লক্ষ্য।</p>
+    </div>
+    <div class="stats">
+      <div><b>৩+</b><span>বছরের অভিজ্ঞতা</span></div>
+      <div><b>৫+</b><span>সেবা বিভাগ</span></div>
+      <div><b>১০০%</b><span>স্বচ্ছতা</span></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2 style="font-family:'Poppins',sans-serif; font-size:24px;">অর্ডার বা প্রশ্ন? এখনই যোগাযোগ করুন</h2>
+    <div class="contact-row">
+      <a href="tel:+918918773392">📞 +91 8918773392</a>
+      <a href="https://wa.me/918918773392" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a href="mailto:Arindam.helpline2020@gmail.com">✉️ ইমেইল</a>
+    </div>
+    <p style="color:var(--muted); font-size:14px; margin-top:14px;">Begunia, Mayureswar-I, Birbhum, West Bengal – 731245</p>
+  </section>
+
+</main>
+
+
+<footer>
+  <strong>ARINDAM D.S.C</strong> · ARINDAM DIGITAL SERVICE CENTER<br>
+  © <span id="yr"></span> সর্বস্বত্ব সংরক্ষিত
+</footer>
+
+<a class="float-wa" href="https://wa.me/918918773392" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const buttons = document.querySelectorAll('.filter');
+  const items = document.querySelectorAll('.item');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.f;
+      items.forEach(it => it.classList.toggle('hide', f !== 'all' && it.dataset.c !== f));
+    });
+  });
+</script>
+</body>
+</html>
